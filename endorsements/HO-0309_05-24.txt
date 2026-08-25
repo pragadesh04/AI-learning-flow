@@ -9,9 +9,9 @@ This endorsement modifies insurance provided under the:
 HOMEOWNERS POLICY — SPECIAL FORM
 
 SECTION I — PURPOSE
-This endorsement addresses losses arising from business activities conducted
-at or from the described dwelling, including home-based offices, in-home
-businesses, and remote work activities.
+This endorsement covers how the policy responds to business carried on at or
+from the described dwelling — home offices, in-home businesses, remote work,
+and care-giving operations run from the premises.
 
 CLAUSE BP-1 — BUSINESS PURSUITS EXCLUSION
 We do not cover bodily injury or property damage arising out of or in connection
@@ -32,6 +32,11 @@ Coverage is excluded for any bodily injury or property damage arising from
 a home day care, foster care, or after-school care operation conducted
 at the described premises, regardless of whether compensation is received.
 
+CLAUSE BP-4 — SIGNAGE AND CLIENT TRAFFIC
+The CLAUSE BP-2 exception is void for any policy period in which the dwelling
+displays commercial signage or receives client foot traffic more often than
+the single weekly visit allowed above.
+
 SECTION II — EXCLUSIONS TABLE
 EXCLUSION TABLE — HO-0309 ed. 05-24
 
@@ -39,15 +44,15 @@ EXCLUSION TABLE — HO-0309 ed. 05-24
 |------|--------------------------------------------|--------------------------------------------------------------------|
 | E-19 | Business pursuits liability                | BI/PD from any business activity; see CLAUSE BP-1                 |
 |      |                                            | Business pursuits exclusion E-19 IS present in HO-0309 ed. 05-24  |
-| E-36 | Home day care and foster care liability    | Any care-giving operation for compensation at described premises    |
-| E-37 | Business inventory and stock               | Merchandise, stock-in-trade held for sale; excluded under Cov C    |
+| E-36 | Home day care and foster care liability    | Any paid care-giving operation run at the described premises       |
+| E-37 | Business inventory and stock               | Merchandise or stock-in-trade held for sale; excluded under Cov C  |
 | E-38 | Professional liability / errors & omissions| Claims arising from professional services rendered from home       |
-| E-39 | Employer's liability — domestic workers    | Claims from household employees for work-related injuries          |
+| E-39 | Employer's liability — domestic workers    | Household employee claims for work-related injury                  |
 
 SECTION III — BUSINESS EQUIPMENT SUBLIMIT
 The $2,500 sublimit under CLAUSE BP-2 is per occurrence and per policy year.
-Equipment valued above $2,500 requires a separate Inland Marine floater.
-Electronic data and software are excluded from this sublimit.
+Equipment worth more than $2,500 needs a separate Inland Marine floater.
+Electronic data and software fall outside this sublimit entirely.
 
 SECTION IV — EFFECTIVE DATE
 This endorsement is effective May 15, 2024.

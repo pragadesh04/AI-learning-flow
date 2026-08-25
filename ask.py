@@ -37,10 +37,10 @@ BANNER = f"""
 Type your question below, or {BOLD}quit{RESET}{DIM} to exit.{RESET}
 
 {YELLOW}Try one of these:{RESET}
-  • Does E-17 cover water damage from a burst supply line?
-  • What is the named storm deductible under HO-0305?
-  • What does "sudden and accidental" mean under HO-0304?
-  • Is there a business pursuits exclusion in HO-0309?
+  • Is mold remediation ever payable under HO-0306, and up to what limit?
+  • What does CLAUSE EM-2 say about concurrent causes in HO-0308?
+  • How current must an appraisal be for scheduled items under HO-0307?
+  • What is the in-home office equipment sublimit under HO-0309?
 """
 
 

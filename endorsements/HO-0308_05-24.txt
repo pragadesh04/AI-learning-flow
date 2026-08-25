@@ -9,9 +9,9 @@ This endorsement modifies insurance provided under the:
 HOMEOWNERS POLICY — SPECIAL FORM
 
 SECTION I — PURPOSE
-This endorsement broadens and clarifies the earth movement exclusion contained
-in the base homeowners policy to address ambiguity in coverage determinations
-involving sinkholes, soil subsidence, and expansive soil events.
+This endorsement widens the earth movement exclusion in the base homeowners
+policy and removes the ambiguity that has driven disputed determinations on
+sinkholes, soil subsidence, and expansive soil claims.
 
 CLAUSE EM-1 — EARTH MOVEMENT DEFINED (BROADENED)
 For purposes of this endorsement, "earth movement" means any movement,
@@ -33,6 +33,11 @@ CLAUSE EM-3 — ENSUING FIRE EXCEPTION
 Notwithstanding CLAUSE EM-1 and EM-2, if earth movement causes a fire,
 coverage for the ensuing fire damage is not excluded by this endorsement.
 
+CLAUSE EM-4 — ENGINEERING REPORT
+Where the Company obtains a geotechnical or structural engineering report on
+a claimed loss, that report is the controlling evidence of whether earth
+movement contributed to the damage.
+
 SECTION II — EXCLUSIONS TABLE
 EXCLUSION TABLE — HO-0308 ed. 05-24
 
@@ -44,12 +49,12 @@ EXCLUSION TABLE — HO-0308 ed. 05-24
 | E-32 | Man-made earth movement                    | Mining subsidence, excavation-induced movement, compaction failure |
 | E-33 | Sinkhole collapse damage                   | Structural damage from sinkhole formation or sudden collapse       |
 | E-34 | Expansive soil and shrinkage               | Foundation cracking from soil expansion, shrinkage, or settlement  |
-| E-35 | Mudslide and debris flow                   | Flowing earth, mud, or debris regardless of triggering event       |
+| E-35 | Mudslide and debris flow                   | Flowing earth, mud, or debris whatever set it in motion            |
 
 SECTION III — ENSUING LOSS EXCEPTION NOTE
-Only ensuing fire (per CLAUSE EM-3) is excepted from this exclusion.
-Water damage that ensues from ruptured pipes caused by earth movement
-is also excluded under E-31 (concurrent cause rule, CLAUSE EM-2).
+Ensuing fire under CLAUSE EM-3 is the only exception to this exclusion.
+Water damage that follows from pipes ruptured by earth movement stays
+excluded under E-31 through the concurrent cause rule in CLAUSE EM-2.
 
 SECTION IV — EFFECTIVE DATE
 This endorsement is effective May 1, 2024.

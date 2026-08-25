@@ -11,8 +11,9 @@ HOMEOWNERS POLICY — SPECIAL FORM
 SECTION I — PROPERTY COVERAGES
 
 COVERAGE A — DWELLING
-This endorsement amends the base policy wording for water damage originating
-from supply lines, drain lines, and related plumbing infrastructure.
+This endorsement replaces the base policy treatment of water losses that
+originate inside the dwelling, including supply lines, drain lines, and the
+plumbing infrastructure serving the described premises.
 
 CLAUSE WD-1 — SUDDEN AND ACCIDENTAL DISCHARGE
 Coverage applies to sudden and accidental discharge or overflow of water or
@@ -27,29 +28,35 @@ A "supply line" means any pipe or tube that carries potable water under pressure
 from the main service entry or from a distribution manifold to any plumbing
 fixture, appliance, or point of use within or attached to the described dwelling.
 
+CLAUSE WD-3 — MITIGATION DUTY
+Following a water loss, the insured must take reasonable steps to stop the
+source and dry affected materials. Reasonable emergency mitigation costs are
+payable under Coverage A and are not subject to a separate deductible.
+
 SECTION II — EXCLUSIONS TABLE
-The following exclusion codes apply under this endorsement. Each row identifies
-the exclusion code, the peril excluded, and applicable conditions.
+The rows below govern water losses under this endorsement. Each row states the
+exclusion code, the peril, and the conditions under which the row operates.
 
 EXCLUSION TABLE — HO-0304 ed. 03-24
 
 | Code | Excluded Peril                             | Conditions / Scope                                                 |
 |------|--------------------------------------------|--------------------------------------------------------------------|
-| E-11 | Gradual seepage or leakage                 | Any water that seeps, leaks, or flows continuously over 14+ days   |
-| E-12 | Flood from external surface water          | Water that enters from outside the structure (storm surge, runoff) |
-| E-13 | Sewer or drain backup (off-premises)       | Backup originating from a municipal or shared drain line           |
-| E-14 | Ground water intrusion                     | Water below the soil surface entering foundation or basement       |
-| E-15 | Ice dam damage without maintenance record  | Loss attributable to ice dam where insured has no annual inspection|
-| E-16 | Appliance wear-and-tear overflow           | Overflow from appliance over 15 years old with no service record   |
+| E-10 | Unoccupied dwelling freeze loss            | Freeze damage where heat was not maintained and water not shut off |
+| E-11 | Gradual seepage or leakage                 | Water seeping or leaking continuously beyond the 14-day WD-1 limit |
+| E-12 | Flood from external surface water          | Surface water entering from outside — storm surge, runoff, overflow|
+| E-13 | Sewer or drain backup (off-premises)       | Backup originating in a municipal or shared drain line             |
+| E-14 | Ground water intrusion                     | Subsurface water reaching the foundation, slab, or basement        |
+| E-15 | Ice dam damage without maintenance record  | Ice dam loss where no annual roof inspection record exists         |
+| E-16 | Appliance wear-and-tear overflow           | Overflow from an appliance past 15 years of service, unserviced    |
 | E-17 | Burst supply line — NOT excluded           | Water damage from a sudden burst of an interior supply line IS     |
 |      |                                            | COVERED under CLAUSE WD-1 and WD-2; this row confirms coverage     |
 |      |                                            | is NOT withheld under this endorsement for that specific peril.    |
-| E-18 | Intentional discharge                      | Any water release caused deliberately by any insured person        |
+| E-18 | Intentional discharge                      | Any water release brought about deliberately by an insured person  |
 
 SECTION III — CONDITIONS
-Claim reporting for water damage under this endorsement must occur within
-72 hours of the insured first discovering the loss. Failure to report within
-this window may result in denial under E-11 (gradual seepage classification).
+A water loss under this endorsement must be reported within 72 hours of the
+insured first discovering it. A report made outside that window may be
+reclassified as gradual seepage and denied under E-11.
 
 SECTION IV — EFFECTIVE DATE AND SUPERSESSION
 This endorsement is effective March 1, 2024, and supersedes any conflicting
