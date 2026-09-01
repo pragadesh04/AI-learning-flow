@@ -19,7 +19,7 @@ load_dotenv()  # load GROQ_API_KEY from .env before importing anything that need
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "src"))
 
 from answerer import generate_answer
-from retriever import search
+from hybrid import fused_search
 
 # ── ANSI colours ────────────────────────────────────────────────────────────
 CYAN, GREEN, YELLOW, RED = "\033[96m", "\033[92m", "\033[93m", "\033[91m"
@@ -47,7 +47,7 @@ Type your question below, or {BOLD}quit{RESET}{DIM} to exit.{RESET}
 def ask(question: str) -> None:
     """One turn: retrieve, show what came back, then generate a grounded answer."""
     try:
-        hits = search(question, strategy="structure_aware", n_results=5)
+        hits = fused_search(question, strategy="structure_aware", n_results=5)
     except Exception as exc:
         print(f"{RED}Retrieval error: {exc}{RESET}")
         print(f"{DIM}Have you built the index yet? Run: python src/indexer.py{RESET}")

@@ -1,13 +1,21 @@
 # Insurance Endorsement RAG — A Chunking Bake-Off
 
-*Week 3 Practical · Task Set D · Module M2 — Retrieval & RAG*
+*Weeks 3–4 Practicals · Task Set D · Module M2 — Retrieval & RAG*
 
 Six homeowners policy endorsements go in. Two chunking strategies index them
 side by side, eight known-answer questions are fired at both, and the run
 writes up which strategy actually found the answer — and where each one failed.
 
+**Week 4 put that retriever on trial.** A 12-question golden set with
+known-correct chunk_ids (`golden_set.jsonl`) measured hit-rate@3, every
+failure was labelled R / G / Not-In-Corpus through an inspection view, and
+exactly ONE retrieval change — BM25 + RRF rank fusion, k=60
+(`src/hybrid.py`) — took **hit-rate@3 from 11/12 to 12/12** at unchanged
+p50 latency. The MMR bonus was measured and rejected (it pays hits for
+variety). `ask.py` now retrieves through the fused path.
+
 The point of the project is not the chatbot. It is the evidence: `report.md`
-is a generated scorecard, not a claim.
+(Week 3) and `results.md` (Week 4) are generated scorecards, not claims.
 
 ---
 
@@ -64,11 +72,26 @@ python src/indexer.py
 python build_report.py
 ```
 
-**Ask it something yourself** — an interactive CLI over the structure-aware
-index, with citations:
+**Ask it something yourself** — an interactive CLI with citations, retrieving
+through the Week-4 hybrid path (dense + BM25, RRF-fused):
 
 ```bash
 python ask.py
+```
+
+**Week 4 — measure retrieval, label failures, regenerate `results.md`:**
+
+```bash
+python week4_eval.py                     # full run: baseline → labels → one change → after → MMR
+python week4_eval.py --skip-generation   # same numbers, no API call (skips R/G transcripts)
+```
+
+**Inspect a single query** — ranks, scores, dense/BM25 provenance, and where
+the known-correct chunk actually sits:
+
+```bash
+python inspect_retrieval.py "effective date of HO-0305 ed. 03-24" --golden HO-0305_sa_chunk_010
+python inspect_retrieval.py --golden-set golden_set.jsonl --mode fused
 ```
 
 ### What `build_report.py` actually does
@@ -98,14 +121,19 @@ Re-running is safe and idempotent: the index is rebuilt from scratch and
 ├── src/
 │   ├── splitters.py            # The two chunkers
 │   ├── indexer.py              # Filename → metadata → ChromaDB
-│   ├── retriever.py            # Vector search + metadata filtering
+│   ├── retriever.py            # Vector search + metadata filtering (the dense path)
+│   ├── hybrid.py               # Week 4: BM25 + RRF fusion — the one retrieval change
 │   ├── answerer.py             # Groq generation + the refusal rule
-│   └── eval_harness.py         # The 8 questions and how they're scored
-├── build_report.py             # Runs everything, writes the deliverable
-├── ask.py                      # Interactive CLI
+│   └── eval_harness.py         # Week 3: the 8 questions and how they're scored
+├── build_report.py             # Week 3 pipeline end to end, writes report.md
+├── week4_eval.py               # Week 4 pipeline end to end, writes results.md
+├── inspect_retrieval.py        # Inspection view — evidence behind every R/G label
+├── golden_set.jsonl            # Week 4: 12 questions tagged with known-correct chunk_ids
+├── ask.py                      # Interactive CLI (fused retrieval)
 ├── writeup.md                  # ✍️  Your analysis — edit this one
-├── report.md                   # 🤖  Generated — don't hand-edit
-├── task_brief.md               # The original assignment
+├── report.md                   # 🤖  Generated (Week 3) — don't hand-edit
+├── results.md                  # 🤖  Generated (Week 4) — don't hand-edit
+├── task_brief.md               # The Week 3 assignment
 ├── requirements.txt            # Pinned dependencies
 └── .env.example                # API key template
 ```
