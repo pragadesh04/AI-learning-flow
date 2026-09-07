@@ -1,0 +1,21 @@
+trace_id,mode,severity
+tr_20260831T1225_0004,citation printed in brackets the citation checker cannot parse,annoys the adjuster
+tr_20260831T1556_0009,denial text that cannot be pasted into a letter as written,misleads the adjuster
+tr_20260901T1148_0015,no fault observed,n/a
+tr_20260902T1647_0031,no fault observed,n/a
+tr_20260902T1719_0032,no fault observed,n/a
+tr_20260903T1540_0043,citation printed in brackets the citation checker cannot parse,annoys the adjuster
+tr_20260904T1244_0049,refuses although the answering exclusion row is in the corpus,misleads the adjuster
+tr_20260904T1606_0054,denial text that cannot be pasted into a letter as written,misleads the adjuster
+tr_20260905T0939_0057,widens a narrowly scoped clause into a general rule,wrongly denies or pays
+tr_20260905T1256_0060,no fault observed,n/a
+tr_20260905T1506_0062,citation printed in brackets the citation checker cannot parse,annoys the adjuster
+tr_20260905T1633_0064,no fault observed,n/a
+tr_20260906T0853_0066,no fault observed,n/a
+tr_20260906T1708_0074,cites a clause number that does not exist in the form it names,misleads the adjuster
+tr_20260908T0959_0090,no fault observed,n/a
+tr_20260908T1518_0096,no fault observed,n/a
+tr_20260909T1208_0106,answers a corpus-wide question from one endorsement only,wrongly denies or pays
+tr_20260909T1719_0113,citation printed in brackets the citation checker cannot parse,annoys the adjuster
+tr_20260911T1220_0130,no fault observed,n/a
+tr_20260911T1659_0134,no fault observed,n/a

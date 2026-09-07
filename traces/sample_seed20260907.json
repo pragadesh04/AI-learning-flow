@@ -1,0 +1,29 @@
+{
+  "log": "traces/traffic.jsonl",
+  "population_size": 140,
+  "seed": 20260907,
+  "n": 20,
+  "selection_rule": "random.Random(seed).sample(sorted(trace_ids), n) \u2014 Python 3.13 stdlib Mersenne Twister; sorting the population first makes the draw independent of the order lines were written to the log",
+  "trace_ids": [
+    "tr_20260831T1225_0004",
+    "tr_20260831T1556_0009",
+    "tr_20260901T1148_0015",
+    "tr_20260902T1647_0031",
+    "tr_20260902T1719_0032",
+    "tr_20260903T1540_0043",
+    "tr_20260904T1244_0049",
+    "tr_20260904T1606_0054",
+    "tr_20260905T0939_0057",
+    "tr_20260905T1256_0060",
+    "tr_20260905T1506_0062",
+    "tr_20260905T1633_0064",
+    "tr_20260906T0853_0066",
+    "tr_20260906T1708_0074",
+    "tr_20260908T0959_0090",
+    "tr_20260908T1518_0096",
+    "tr_20260909T1208_0106",
+    "tr_20260909T1719_0113",
+    "tr_20260911T1220_0130",
+    "tr_20260911T1659_0134"
+  ]
+}

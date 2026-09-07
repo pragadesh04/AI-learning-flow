@@ -1,0 +1,10 @@
+{
+  "log": "traces/traffic.jsonl",
+  "population_size": 140,
+  "seed": 5091,
+  "n": 1,
+  "selection_rule": "random.Random(seed).sample(sorted(trace_ids), n) \u2014 Python 3.13 stdlib Mersenne Twister; sorting the population first makes the draw independent of the order lines were written to the log",
+  "trace_ids": [
+    "tr_20260907T1339_0083"
+  ]
+}

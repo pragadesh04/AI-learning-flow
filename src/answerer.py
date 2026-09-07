@@ -1,11 +1,3 @@
-"""
-answerer.py — RAG generation and hard refusal logic.
-
-Uses the Groq API (OpenAI-compatible) with openai/gpt-oss-120b. The grounding
-prompt FORCES a refusal when the answer is not in the retrieved chunks —
-there is deliberately no "use your best judgement" escape hatch.
-"""
-
 import os
 import sys
 from functools import lru_cache
@@ -13,6 +5,7 @@ from functools import lru_cache
 from openai import OpenAI
 
 sys.path.insert(0, os.path.dirname(__file__))
+from prompts import ACTIVE_PROMPT_VERSION, PROMPT_VERSIONS
 from retriever import search
 
 GROQ_BASE_URL = "https://api.groq.com/openai/v1"
@@ -36,7 +29,7 @@ def get_client() -> OpenAI:
 # Grounding system prompt — hard refusal, no hallucination escape hatch
 # ---------------------------------------------------------------------------
 
-SYSTEM_PROMPT = """You are an insurance claims assistant that answers questions
+_LEGACY_SYSTEM_PROMPT = """You are an insurance claims assistant that answers questions
 ONLY from the provided policy endorsement context.
 
 RULES (non-negotiable):
@@ -56,6 +49,20 @@ RULES (non-negotiable):
 6. If in doubt, refuse. An invented coverage answer given to a policyholder
    is a bad-faith exposure; refusal is always safer than invention.
 """
+
+# Week 5: the live prompt now comes from the versioned registry, so a trace can
+# name the wording that ran and a replay can prove it. The literal above is kept
+# only as a tripwire — if the registry's v1 ever drifts from the text this
+# module shipped with, importing answerer fails loudly rather than quietly
+# replaying traces against wording that never ran.
+SYSTEM_PROMPT = PROMPT_VERSIONS[ACTIVE_PROMPT_VERSION]["system"]
+USER_TEMPLATE = PROMPT_VERSIONS[ACTIVE_PROMPT_VERSION]["user_template"]
+
+if SYSTEM_PROMPT != _LEGACY_SYSTEM_PROMPT:
+    raise RuntimeError(
+        "prompts.py v1 no longer matches the system prompt answerer.py shipped "
+        "with; add a new prompt version instead of editing v1 in place."
+    )
 
 
 def format_context(hits: list[dict]) -> str:
@@ -79,12 +86,8 @@ def generate_answer(question: str, hits: list[dict], verbose: bool = True) -> di
     Returns:
         dict with question, answer, is_refusal, hits_used.
     """
-    user_message = (
-        f"CONTEXT FROM INDEXED ENDORSEMENTS:\n\n{format_context(hits)}\n\n"
-        f"QUESTION: {question}\n\n"
-        f"Answer using ONLY the context above. Cite each claim with "
-        f"[SOURCE: chunk_id | form_number | clause_id]. "
-        f"If the answer is not in the context, issue the REFUSAL message exactly."
+    user_message = USER_TEMPLATE.format(
+        context=format_context(hits), question=question
     )
 
     response = get_client().chat.completions.create(

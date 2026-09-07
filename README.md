@@ -1,6 +1,6 @@
 # Insurance Endorsement RAG — A Chunking Bake-Off
 
-*Weeks 3–4 Practicals · Task Set D · Module M2 — Retrieval & RAG*
+*Weeks 3–5 Practicals · Task Set D · Modules M2 — Retrieval & RAG and M3 — Evals & Error Analysis*
 
 Six homeowners policy endorsements go in. Two chunking strategies index them
 side by side, eight known-answer questions are fired at both, and the run
@@ -14,8 +14,17 @@ exactly ONE retrieval change — BM25 + RRF rank fusion, k=60
 p50 latency. The MMR bonus was measured and rejected (it pays hits for
 variety). `ask.py` now retrieves through the fused path.
 
+**Week 5 read the traces.** The app was instrumented — a redacted JSONL trace
+per answered question — and a week of adjuster traffic produced **140 traces**.
+Twenty were drawn at random with a pasted seed (`20260907`), read by hand with
+zero code changes, and clustered into a ranked taxonomy. **Half carry a defect
+an adjuster would notice; none invented a coverage rule.** The largest single
+mode, at 20%, is a citation printed in brackets the citation checker cannot
+parse. `taxonomy.md` is the one-screen deliverable, `notes.md` the evidence.
+
 The point of the project is not the chatbot. It is the evidence: `report.md`
-(Week 3) and `results.md` (Week 4) are generated scorecards, not claims.
+(Week 3), `results.md` (Week 4) and `taxonomy.md` (Week 5) are scorecards,
+not claims.
 
 ---
 
@@ -79,6 +88,20 @@ through the Week-4 hybrid path (dense + BM25, RRF-fused):
 python ask.py
 ```
 
+**Week 5 — generate traces, sample them, read them, count the modes:**
+
+```bash
+python simulate_traffic.py                       # a week of traffic -> traces/*.jsonl
+python week5_analysis.py sample --seed 20260907 --n 20
+python week5_analysis.py show --sample traces/sample_seed20260907.json
+python week5_analysis.py tally                   # counts behind taxonomy.md
+python week5_analysis.py replay tr_20260907T1339_0083
+python src/redaction.py                          # prove the redactor
+```
+
+Only `simulate_traffic.py` and `replay` spend API tokens; sampling, reading and
+tallying are free and deterministic.
+
 **Week 4 — measure retrieval, label failures, regenerate `results.md`:**
 
 ```bash
@@ -124,10 +147,20 @@ Re-running is safe and idempotent: the index is rebuilt from scratch and
 │   ├── retriever.py            # Vector search + metadata filtering (the dense path)
 │   ├── hybrid.py               # Week 4: BM25 + RRF fusion — the one retrieval change
 │   ├── answerer.py             # Groq generation + the refusal rule
-│   └── eval_harness.py         # Week 3: the 8 questions and how they're scored
+│   ├── eval_harness.py         # Week 3: the 8 questions and how they're scored
+│   ├── redaction.py            # Week 5: identifiers stripped on the WRITE path
+│   ├── tracing.py              # Week 5: schema v1.1 JSONL trace writer
+│   ├── prompts.py              # Week 5: versioned prompt registry
+│   └── replay.py               # Week 5: rebuild one request from its trace
 ├── build_report.py             # Week 3 pipeline end to end, writes report.md
 ├── week4_eval.py               # Week 4 pipeline end to end, writes results.md
 ├── inspect_retrieval.py        # Inspection view — evidence behind every R/G label
+├── simulate_traffic.py         # Week 5: a week of adjuster traffic -> traces/
+├── week5_analysis.py           # Week 5: sample | show | replay | tally
+├── traces/                     # Week 5: the trace log, the seeded draws, the coding
+├── taxonomy.md                 # ✍️  Week 5 deliverable — 6 modes, one screen
+├── notes.md                    # ✍️  Week 5 — 20 sentences, replay, prediction
+├── prediction.md               # ✍️  Week 5 — dated, falsifiable, committed first
 ├── golden_set.jsonl            # Week 4: 12 questions tagged with known-correct chunk_ids
 ├── ask.py                      # Interactive CLI (fused retrieval)
 ├── writeup.md                  # ✍️  Your analysis — edit this one
