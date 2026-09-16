@@ -1,0 +1,161 @@
+{
+  "protocol": "Hand labels on the judge's single binary criterion, written BEFORE any judge run. Labeller saw: criterion, adjuster input, full policy wording, the output. Labeller did NOT see: failure-mode tag, assertion results, any judge verdict.",
+  "criterion_from": "evals/judge_v1.txt",
+  "criterion": "COVERAGE_SUPPORTED — Is every coverage statement in the output supported by the\nadjuster input and the policy wording?\n\nA coverage statement is anything that says what is covered, what is denied or\nexcluded, which exclusion or clause decides it, or what limit or sublimit applies.\n\nPASS only if every coverage statement is supported.\nFAIL if any coverage statement:\n  - grants coverage, or a limit, that the wording does not give;\n  - denies or excludes on a clause whose conditions the input does not meet;\n  - applies a clause or exclusion code from a form that is not on this policy,\n    or attributes a code to the wrong form;\n  - stretches a clause beyond the scope its own wording states;\n  - calls a question undetermined, or refuses, when the wording plainly decides it.\n\nNOT part of this criterion (checked elsewhere, ignore them): claim number\nformat, date format, whether the deductible is written as a number, citation\nsyntax, tone, length.",
+  "labeller": null,
+  "started_at": "2026-09-16T15:55:48+0530",
+  "finished_at": null,
+  "order_seed": 20260916,
+  "labels": {
+    "s01": {
+      "output_sha256": "f3d3165bc312fdba",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s21": {
+      "output_sha256": "ba037dca8ecb6153",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s05": {
+      "output_sha256": "133e3fda6aab97cc",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s03": {
+      "output_sha256": "ad2565d72520c323",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s18": {
+      "output_sha256": "e48b05fed98691f2",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s07": {
+      "output_sha256": "5dd9e3a04345361c",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s24": {
+      "output_sha256": "cec36ee9c3a72374",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s20": {
+      "output_sha256": "01899ed5c00af3b7",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s16": {
+      "output_sha256": "6b8ccf245dc14ada",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s23": {
+      "output_sha256": "461a0f1f7826595b",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s19": {
+      "output_sha256": "c73957a2cacb4977",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s09": {
+      "output_sha256": "0d9442058d92766f",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s14": {
+      "output_sha256": "aaee2d750ec588d7",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s10": {
+      "output_sha256": "7b42fd279ca9b158",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s11": {
+      "output_sha256": "7a7e71ee1ade93aa",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s15": {
+      "output_sha256": "b9f8ac446bbe9ed7",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s08": {
+      "output_sha256": "5273cbc755802da3",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s17": {
+      "output_sha256": "de7d49f3226cf4bb",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s12": {
+      "output_sha256": "3d9e578c9ae86c57",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s04": {
+      "output_sha256": "a621262adb46b675",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s06": {
+      "output_sha256": "1c2c97fedb31a458",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s13": {
+      "output_sha256": "280626282680cf29",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s25": {
+      "output_sha256": "27b2b65100094117",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s02": {
+      "output_sha256": "9e774d7111ab2546",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    },
+    "s22": {
+      "output_sha256": "7001c84a8cd6a52c",
+      "label": null,
+      "note": "",
+      "labelled_at": null
+    }
+  }
+}

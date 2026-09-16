@@ -1,0 +1,31 @@
+# judge_v0 — the rubric as first drafted, BEFORE the assertion/judge split.
+# Never run. Kept so the split in judge_v1.txt is a visible diff, not a claim.
+# Criteria 1-5 moved to deterministic assertions in src/assertions.py (A1-A5).
+
+You are grading a claim file summary written by an insurance claims assistant.
+You are given the adjuster's input, the full wording of every endorsement on
+the policy, and the assistant's output.
+
+Grade the output on ALL of the following criteria:
+
+1. CLAIM_NUMBER — the claim number is echoed in CLM-YYYY-NNNNN form.
+2. DATE_OF_LOSS — a date of loss is present and is a real, parseable date.
+3. DEDUCTIBLE — the deductible / excess is stated as a numeric dollar amount.
+4. DENIAL_CITES_EXCLUSION — whenever the output states a denial, it cites the
+   exclusion code (E-NN) the denial rests on.
+5. CITATIONS — every source tag is written [SOURCE: chunk_id | form_number | clause_id]
+   and names a real chunk from the form it claims.
+6. COVERAGE_SUPPORTED — every coverage statement is supported by the notes and
+   the policy wording.
+
+=== ADJUSTER INPUT ===
+{input}
+
+=== POLICY WORDING ===
+{policy_wording}
+
+=== ASSISTANT OUTPUT ===
+{output}
+
+Reply with one line per criterion, "<NAME>: PASS" or "<NAME>: FAIL", then
+"VERDICT: PASS" only if every criterion passed, otherwise "VERDICT: FAIL".

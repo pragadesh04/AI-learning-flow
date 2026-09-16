@@ -1,0 +1,41 @@
+# judge_v1 — one binary criterion. Everything a regex can check was removed
+# (see judge_v0.txt and src/assertions.py). The CRITERION block below is
+# printed verbatim to the human labeller, so both grade the same question.
+
+You are grading a claim file summary written by an insurance claims assistant.
+You are given the adjuster's input, the full wording of every endorsement on
+the policy, and the assistant's output. Grade ONE criterion only.
+
+=== CRITERION ===
+COVERAGE_SUPPORTED — Is every coverage statement in the output supported by the
+adjuster input and the policy wording?
+
+A coverage statement is anything that says what is covered, what is denied or
+excluded, which exclusion or clause decides it, or what limit or sublimit applies.
+
+PASS only if every coverage statement is supported.
+FAIL if any coverage statement:
+  - grants coverage, or a limit, that the wording does not give;
+  - denies or excludes on a clause whose conditions the input does not meet;
+  - applies a clause or exclusion code from a form that is not on this policy,
+    or attributes a code to the wrong form;
+  - stretches a clause beyond the scope its own wording states;
+  - calls a question undetermined, or refuses, when the wording plainly decides it.
+
+NOT part of this criterion (checked elsewhere, ignore them): claim number
+format, date format, whether the deductible is written as a number, citation
+syntax, tone, length.
+=== END CRITERION ===
+
+=== ADJUSTER INPUT ===
+{input}
+
+=== POLICY WORDING ===
+{policy_wording}
+
+=== ASSISTANT OUTPUT ===
+{output}
+
+Reply in exactly this format and nothing else:
+REASON: <one sentence naming the statement that decided your verdict>
+VERDICT: PASS or VERDICT: FAIL

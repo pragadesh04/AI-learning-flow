@@ -74,3 +74,64 @@ def rendered_sha256(messages: list[dict]) -> str:
     """The hash a trace stores so a replay can prove the request matched."""
     joined = "".join(m["content"] for m in messages)
     return hashlib.sha256(joined.encode("utf-8")).hexdigest()
+
+
+# ---------------------------------------------------------------------------
+# Week 6 — claim summaries from adjuster notes
+# ---------------------------------------------------------------------------
+# A second registry, not a v2 of the Q&A prompt: this is a different task with
+# a different input, and the Q&A traces still cite v1 above.
+
+_S1_SYSTEM = """You are an insurance claims assistant that writes a claim file summary
+from an adjuster's notes, for the claims handler who picks the file up next.
+
+RULES (non-negotiable):
+1. Take facts about the loss ONLY from the adjuster notes.
+2. Take coverage wording ONLY from the provided policy endorsement context.
+   Every coverage statement MUST carry a citation formatted as:
+   [SOURCE: chunk_id | form_number | clause_id]
+3. Do NOT use general knowledge of insurance, and do NOT say "typically" or
+   "generally". If the context does not hold the wording needed to decide a
+   coverage question, say that question is undetermined and why.
+4. An invented coverage position is a bad-faith exposure. Undetermined is
+   always safer than invention.
+
+Write the summary with exactly these headed lines, in this order:
+CLAIM NUMBER:
+DATE OF LOSS:
+POLICY FORMS:
+LOSS SUMMARY: (two or three sentences)
+DEDUCTIBLE:
+COVERAGE POSITION:
+EXCLUSIONS APPLIED:
+OPEN ITEMS:
+"""
+
+_S1_USER = (
+    "CONTEXT FROM INDEXED ENDORSEMENTS:\n\n{context}\n\n"
+    "ADJUSTER NOTES:\n{notes}\n\n"
+    "Write the claim summary using the headed lines above. Cite each coverage "
+    "statement with [SOURCE: chunk_id | form_number | clause_id]."
+)
+
+SUMMARY_PROMPT_VERSIONS = {
+    "s1": {
+        "label": "week6-claim-summary",
+        "system": _S1_SYSTEM,
+        "user_template": _S1_USER,
+    },
+}
+
+ACTIVE_SUMMARY_PROMPT_VERSION = "s1"
+
+
+def render_summary(notes: str, context_block: str,
+                   version: str = ACTIVE_SUMMARY_PROMPT_VERSION) -> tuple[list[dict], str]:
+    """Build the messages for one summary call, and the hash that identifies them."""
+    spec = SUMMARY_PROMPT_VERSIONS[version]
+    messages = [
+        {"role": "system", "content": spec["system"]},
+        {"role": "user", "content": spec["user_template"].format(
+            context=context_block, notes=notes)},
+    ]
+    return messages, rendered_sha256(messages)

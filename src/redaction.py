@@ -89,18 +89,23 @@ def detect(text: str) -> dict[str, list[str]]:
     return found
 
 
-def redact(text: str) -> tuple[str, dict[str, int]]:
+def redact(text: str, keep: tuple[str, ...] = ()) -> tuple[str, dict[str, int]]:
     """
     Replace every detected identifier with its placeholder.
 
     Returns the redacted text and a count per kind — the counts go into the
     trace so a reader can see redaction ran without seeing what it removed.
+
+    `keep` names kinds to leave in place. Week 6: a claim summary has to echo
+    the claim number, so the summariser keeps that one kind and nothing else.
     """
     if not text:
         return text, {}
     counts: dict[str, int] = {}
     out = text
     for kind, pattern in _DETECTORS:
+        if kind in keep:
+            continue
         out, n = pattern.subn(PLACEHOLDERS[kind], out)
         if n:
             counts[kind] = counts.get(kind, 0) + n
