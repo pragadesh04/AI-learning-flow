@@ -1,0 +1,79 @@
+==============================================================================
+BUDGET TERMINATION LOG — one budget at a time
+==============================================================================
+shipped allowance   max_iterations=14  max_tokens=45000  max_cost_usd=0.03  max_wall_clock_s=90.0
+note                one budget moved per run; the other three stay at the shipped allowance.
+                    same three tools, same model, same prompt, same claim.
+termination         BudgetLedger.check() runs before every lap and the loop breaks on the
+                    first spent ceiling. The model is not called again afterwards.
+
+==============================================================================
+BUDGET: max_iterations  ->  c05 CLM-2024-71460 (HO-0304)
+==============================================================================
+  budgets     max_iterations=3  max_tokens=45000  max_cost_usd=0.03  max_wall_clock_s=90.0
+  why this number   c05 thrashes on search_policy; the iteration ceiling ends the thrash and the reserved final lap still produces a triage line
+
+  lap  tool            args                                                p_tok  c_tok  cum_tok  cum_cost      ms
+    1  get_claim       claim_number="CLM-2024-71460"                         891     55      946  0.000167    2777
+    2  search_policy   form_number="HO-0304"; query="sewer backup"          1117    101     2164  0.000395     620
+    3  (final answer)                                                       1550    527     4241  0.000944    1676
+
+  stop_reason      answered (over budget: max_iterations)
+  budget fired     max_iterations
+    max_iterations: max_iterations reached on lap 3, the same lap that produced the answer: max_iterations 3/3, max_tokens 4241/4.5e+04, max_cost_usd 0.0009435/0.03, max_wall_clock_s 33.22/90. The verdict below is real and over budget.
+  laps run         3 of 3 allowed
+  tokens           4241 of 45000 allowed
+  cost             $0.000944 of $0.03 allowed
+  work clock       33.22s of 90.0s allowed
+  tool calls made  2  (get_claim->search_policy)
+
+  what the handler gets back:
+    CLAIM NUMBER: CLM-2024-71460
+    STATUS: DENY
+    PAYABLE: $0
+    EVIDENCE: PREAMBLE, SECTION-I
+    REASON: Policy wording does not address sewer backup, so coverage is unclear and presumed excluded.
+
+==============================================================================
+BUDGET: max_tokens  ->  c04 CLM-2024-60337 (HO-0304)
+==============================================================================
+  budgets     max_iterations=14  max_tokens=2000  max_cost_usd=0.03  max_wall_clock_s=90.0
+  why this number   the token ceiling is spent during the second search, so the wording is never finished reading
+
+  lap  tool            args                                                p_tok  c_tok  cum_tok  cum_cost      ms
+    1  get_claim       claim_number="CLM-2024-60337"                         891     55      946  0.000167     729
+    2  search_policy   form_number="HO-0304"; query="storm water damage"    1123    123     2192  0.000409  105645
+
+  stop_reason      budget:max_tokens
+  budget fired     max_tokens
+    max_tokens: max_tokens exhausted after 2 lap(s): max_iterations 2/14, max_tokens 2192/2000, max_cost_usd 0.0004089/0.03, max_wall_clock_s 106.4/90
+  laps run         2 of 14 allowed
+  tokens           2192 of 2000 allowed
+  cost             $0.000409 of $0.03 allowed
+  work clock       106.40s of 90.0s allowed
+  tool calls made  2  (get_claim->search_policy)
+
+  what the handler gets back:
+    (empty — the budget stopped the loop before the model committed to a verdict)
+
+    ESCALATE: this claim is untriaged and must go to a human adjuster.
+    The budget is the reason, not the model. Compare the max_iterations
+    section above: there the last lap is reserved for the answer, so the
+    same system still returns a verdict. Spending tokens to manufacture one
+    after a token budget has fired would defeat the budget that fired it.
+
+==============================================================================
+BUDGET: max_cost_usd  ->  c04 CLM-2024-60337 (HO-0304)
+==============================================================================
+  budgets     max_iterations=14  max_tokens=45000  max_cost_usd=0.0005  max_wall_clock_s=90.0
+  why this number   the notional spend ceiling trips at the same lap the token ceiling would have, which is the point: cost is a budget you can actually set per claim
+
+  lap  tool            args                                                p_tok  c_tok  cum_tok  cum_cost      ms
+
+  NOT RUN   max_cost_usd on c04: Groq daily token allowance is spent: 199,847 of 200,000 used, 153 left. This is a per-DAY cap, so retrying will not help — it resets on the account's next UTC day. Either wait for the reset or run the arm on a key with a paid tier.
+
+
+  NOT RUN   max_wall_clock_s on c04: skipped, the provider's daily allowance was already spent on an earlier ceiling above
+
+Re-run `week7_race.py --budget-demo` after the provider's daily allowance resets. The ceilings already shown above are unaffected.
+

@@ -1,0 +1,22 @@
+number,agent (baseline)
+outcome pass rate %,
+tool-choice accuracy %,100.0
+argument validity %,100.0
+step efficiency (taken/needed),1.38
+cost per claim p50 $,0.001194
+cost per claim max $,0.004171
+cost per claim mean $,0.001463
+latency p50 s,4.85
+latency max s,26.92
+tokens p50,5953
+payout calls with real codes,0
+payout calls rejected,0
+answers quarantined by D3,0
+
+mode,name,before,after
+M1,skipped the exclusion lookup and still answered,0,
+M2,computed a payout before reading the wording,0,
+M3,called a tool with arguments that do not resolve,0,
+M4,"thrash: a repeated call, or a budget stop with no answer",1,
+M5,"right path, wasted laps",1,
+M6,no fault observed,9,

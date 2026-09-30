@@ -1,0 +1,13 @@
+metric,agent,workflow,winner
+claims_run,10,10,tie
+pass_rate_pct,70.0,60.0,agent
+p50_latency_s,4.847,4.429,workflow
+total_tokens,74602,26251,workflow
+cost_per_claim_usd,0.001463,0.000866,workflow
+
+supporting,agent,workflow,
+mean_model_laps,4.3,2.8,
+mean_tool_calls,3.3,4.8,
+mean_tokens_per_claim,7460.2,2625.1,
+budget_terminations,0,0,
+tariff_usd_per_mtok_prompt,0.15,0.15,notional; free tier bills 0

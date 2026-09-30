@@ -80,6 +80,7 @@ def _defer(seconds: float) -> None:
 
 
 _RETRY_AFTER = re.compile(r"try again in ([\d.]+)s")
+_TPD_LIMIT = re.compile(r"tokens per day \(TPD\): Limit (\d+), Used (\d+)")
 
 
 # The free tier also caps tokens per DAY, and that limit releases in small
@@ -87,16 +88,51 @@ _RETRY_AFTER = re.compile(r"try again in ([\d.]+)s")
 MAX_ATTEMPTS = int(os.environ.get("GROQ_MAX_ATTEMPTS", "24"))
 
 
+class DailyTokenLimit(RuntimeError):
+    """
+    The account's daily token allowance is spent.
+
+    Distinct from a per-minute 429 for a reason that costs real time: a
+    per-minute limit clears in seconds and is worth retrying, while a daily
+    limit clears in hours and retrying it just burns the wall clock before
+    failing the same way. So this one is raised on the first refusal instead of
+    being queued behind `MAX_ATTEMPTS` sleeps.
+    """
+
+    def __init__(self, limit: int, used: int):
+        self.limit, self.used = limit, used
+        self.remaining = max(0, limit - used)
+        super().__init__(
+            f"Groq daily token allowance is spent: {used:,} of {limit:,} used, "
+            f"{self.remaining:,} left. This is a per-DAY cap, so retrying will not "
+            f"help — it resets on the account's next UTC day. Either wait for the "
+            f"reset or run the arm on a key with a paid tier."
+        )
+
+
 def call_model(messages: list[dict], model: str, temperature: float, max_tokens: int,
-               attempts: int = MAX_ATTEMPTS) -> tuple[object, float]:
+               attempts: int = MAX_ATTEMPTS, tools: list[dict] | None = None,
+               tool_choice: str | None = None
+               ) -> tuple[object, float]:
     """
     One chat completion, paced against the token budget and retried on 429.
+
+    `tools` (Week 7) switches the request from generation to a tool-calling
+    lap. It defaults to None so every existing caller is byte-identical.
+    `tool_choice` is only sent when set; "none" is the one that matters — it
+    tells the provider to refuse a tool call server-side, which is the only
+    way to guarantee a text answer on a lap that is out of tool budget.
 
     Returns the response and the latency of the successful call ONLY — waiting
     for the token budget is a property of the free tier, not of the app, and
     folding it into the latency figure would make every trace unreadable.
     """
     estimate = sum(len(m["content"]) for m in messages) // 4 + 400
+    if tools:
+        estimate += len(json.dumps(tools)) // 4
+    body = {"tools": tools}
+    if tool_choice is not None:
+        body["tool_choice"] = tool_choice
     for attempt in range(1, attempts + 1):
         _pace(estimate)
         try:
@@ -104,6 +140,7 @@ def call_model(messages: list[dict], model: str, temperature: float, max_tokens:
             response = get_client().chat.completions.create(
                 model=model, messages=messages,
                 temperature=temperature, max_tokens=max_tokens,
+                **body,
             )
             elapsed_ms = round((time.perf_counter() - started) * 1000, 1)
             if response.usage:
@@ -113,6 +150,9 @@ def call_model(messages: list[dict], model: str, temperature: float, max_tokens:
             text = str(exc)
             if "rate_limit" not in text and "429" not in text:
                 raise
+            tpd = _TPD_LIMIT.search(text)
+            if tpd:
+                raise DailyTokenLimit(int(tpd.group(1)), int(tpd.group(2))) from exc
             if attempt == attempts:
                 raise
             match = _RETRY_AFTER.search(text)
