@@ -43,6 +43,11 @@ from workflow import run_workflow
 
 OUT_DIR = os.path.join(HERE, "week7")
 RUNS = {s: os.path.join(OUT_DIR, f"{s}_runs.jsonl") for s in ("agent", "workflow")}
+
+
+def runs_path(name: str) -> str:
+    """Cache file for an arm; Week 8 arms (agent_mitigated, ...) get their own."""
+    return RUNS.get(name) or os.path.join(OUT_DIR, f"{name}_runs.jsonl")
 RACE_CSV = os.path.join(OUT_DIR, "race.csv")
 BUDGET_LOG = os.path.join(OUT_DIR, "budget_termination.log")
 
@@ -54,7 +59,7 @@ RULE = "=" * 78
 # ---------------------------------------------------------------------------
 
 def load_runs(system: str) -> dict:
-    path = RUNS[system]
+    path = runs_path(system)
     if not os.path.exists(path):
         return {}
     out = {}
@@ -68,7 +73,7 @@ def load_runs(system: str) -> dict:
 
 def append_run(system: str, record: dict) -> None:
     os.makedirs(OUT_DIR, exist_ok=True)
-    with open(RUNS[system], "a", encoding="utf-8") as fh:
+    with open(runs_path(system), "a", encoding="utf-8") as fh:
         fh.write(json.dumps(record, ensure_ascii=False) + "\n")
 
 
@@ -96,7 +101,7 @@ def run_arm(system: str, force: bool = False, only: set[str] | None = None,
             # Every claim finished so far is already on disk, so the arm resumes
             # from where it stopped rather than from the beginning.
             print(f"\n{system}{suffix}: {len(cached)}/{len(CLAIMS)} claims saved to "
-                  f"{os.path.relpath(RUNS[system + suffix], HERE)}\n{exc}\n"
+                  f"{os.path.relpath(runs_path(system + suffix), HERE)}\n{exc}\n"
                   f"re-run the same command after the reset to finish the arm.",
                   file=sys.stderr)
             raise

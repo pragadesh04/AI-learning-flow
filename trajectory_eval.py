@@ -387,11 +387,13 @@ def write_csv(base: dict, base_n: dict, mit: dict, mit_n: dict, dfn: dict = None
     """The four numbers, then the per-mode regression. Three arms where the
     bonus defence arm exists: the rubric's mitigation and the injection
     hardening are separate rows, and conflating them would hide the price."""
-    arms = [("agent (baseline)", base_n)]
+    # outcome_pass_pct lives in outcome_numbers, not arm_numbers
+    arms = [("agent (baseline)", {**base_n, **outcome_numbers(base)})]
     if mit_n:
-        arms.append(("agent (mitigated)", mit_n))
+        arms.append(("agent (mitigated)", {**mit_n, **outcome_numbers(mit)}))
     if dfn_n:
-        arms.append(("agent (mitigated + injection defences)", dfn_n))
+        arms.append(("agent (mitigated + injection defences)",
+                     {**dfn_n, **outcome_numbers(dfn)}))
 
     os.makedirs(W8, exist_ok=True)
     with open(RESULTS_CSV, "w", encoding="utf-8", newline="") as fh:
