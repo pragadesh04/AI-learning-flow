@@ -1,0 +1,143 @@
+[
+  {
+    "direction": "client -> server",
+    "raw": "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"initialize\", \"params\": {\"protocolVersion\": \"2026-07-28\", \"capabilities\": {}, \"clientInfo\": {\"name\": \"week9-wire-capture\", \"version\": \"1.0\"}}}",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "method": "initialize",
+      "params": {
+        "protocolVersion": "2026-07-28",
+        "capabilities": {},
+        "clientInfo": {
+          "name": "week9-wire-capture",
+          "version": "1.0"
+        }
+      }
+    }
+  },
+  {
+    "direction": "server -> client",
+    "raw": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"capabilities\":{\"prompts\":{\"listChanged\":false},\"resources\":{\"listChanged\":false,\"subscribe\":false},\"tools\":{\"listChanged\":false}},\"instructions\":\"Claim records and adjuster note history from the claims platform.\",\"protocolVersion\":\"2025-11-25\",\"serverInfo\":{\"name\":\"claims-system\",\"version\":\"\"}}}",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "result": {
+        "capabilities": {
+          "prompts": {
+            "listChanged": false
+          },
+          "resources": {
+            "listChanged": false,
+            "subscribe": false
+          },
+          "tools": {
+            "listChanged": false
+          }
+        },
+        "instructions": "Claim records and adjuster note history from the claims platform.",
+        "protocolVersion": "2025-11-25",
+        "serverInfo": {
+          "name": "claims-system",
+          "version": ""
+        }
+      }
+    }
+  },
+  {
+    "direction": "client -> server",
+    "raw": "{\"jsonrpc\": \"2.0\", \"method\": \"notifications/initialized\"}",
+    "message": {
+      "jsonrpc": "2.0",
+      "method": "notifications/initialized"
+    }
+  },
+  {
+    "direction": "client -> server",
+    "raw": "{\"jsonrpc\": \"2.0\", \"id\": 2, \"method\": \"tools/list\", \"params\": {}}",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 2,
+      "method": "tools/list",
+      "params": {}
+    }
+  },
+  {
+    "direction": "server -> client",
+    "raw": "{\"jsonrpc\":\"2.0\",\"id\":2,\"result\":{\"tools\":[{\"description\":\"Return the claim record filed under one claim number: workflow status,\\npolicy forms in force, date of loss, amount claimed and the excess on file.\\nDoes not return adjuster notes or policy wording.\",\"inputSchema\":{\"properties\":{\"claim_number\":{\"title\":\"Claim Number\",\"type\":\"string\"}},\"required\":[\"claim_number\"],\"type\":\"object\",\"title\":\"get_claim_statusArguments\"},\"name\":\"get_claim_status\"},{\"description\":\"Return the adjuster note history for one claim number, oldest first.\\nAn empty history means no adjuster has inspected the claim yet.\",\"inputSchema\":{\"properties\":{\"claim_number\":{\"title\":\"Claim Number\",\"type\":\"string\"}},\"required\":[\"claim_number\"],\"type\":\"object\",\"title\":\"get_adjuster_notesArguments\"},\"name\":\"get_adjuster_notes\"}]}}",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 2,
+      "result": {
+        "tools": [
+          {
+            "description": "Return the claim record filed under one claim number: workflow status,\npolicy forms in force, date of loss, amount claimed and the excess on file.\nDoes not return adjuster notes or policy wording.",
+            "inputSchema": {
+              "properties": {
+                "claim_number": {
+                  "title": "Claim Number",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "claim_number"
+              ],
+              "type": "object",
+              "title": "get_claim_statusArguments"
+            },
+            "name": "get_claim_status"
+          },
+          {
+            "description": "Return the adjuster note history for one claim number, oldest first.\nAn empty history means no adjuster has inspected the claim yet.",
+            "inputSchema": {
+              "properties": {
+                "claim_number": {
+                  "title": "Claim Number",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "claim_number"
+              ],
+              "type": "object",
+              "title": "get_adjuster_notesArguments"
+            },
+            "name": "get_adjuster_notes"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "direction": "client -> server",
+    "raw": "{\"jsonrpc\": \"2.0\", \"id\": 3, \"method\": \"tools/call\", \"params\": {\"name\": \"get_claim_status\", \"arguments\": {\"claim_number\": \"CLM-2024-60337\"}}}",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "method": "tools/call",
+      "params": {
+        "name": "get_claim_status",
+        "arguments": {
+          "claim_number": "CLM-2024-60337"
+        }
+      }
+    }
+  },
+  {
+    "direction": "server -> client",
+    "raw": "{\"jsonrpc\":\"2.0\",\"id\":3,\"result\":{\"content\":[{\"text\":\"{\\n  \\\"claim_number\\\": \\\"CLM-2024-60337\\\",\\n  \\\"status\\\": \\\"under_review\\\",\\n  \\\"policy_forms\\\": [\\n    \\\"HO-0304\\\"\\n  ],\\n  \\\"date_of_loss\\\": \\\"2024-09-14\\\",\\n  \\\"amount_claimed_usd\\\": 21000,\\n  \\\"excess_usd\\\": 1000,\\n  \\\"coverage_a_limit_usd\\\": 340000\\n}\",\"type\":\"text\"}],\"isError\":false}}",
+    "message": {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "result": {
+        "content": [
+          {
+            "text": "{\n  \"claim_number\": \"CLM-2024-60337\",\n  \"status\": \"under_review\",\n  \"policy_forms\": [\n    \"HO-0304\"\n  ],\n  \"date_of_loss\": \"2024-09-14\",\n  \"amount_claimed_usd\": 21000,\n  \"excess_usd\": 1000,\n  \"coverage_a_limit_usd\": 340000\n}",
+            "type": "text"
+          }
+        ],
+        "isError": false
+      }
+    }
+  }
+]

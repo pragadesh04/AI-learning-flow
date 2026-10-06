@@ -279,7 +279,7 @@ def tool_compute_payout(args: dict, validate_payout_args: bool = False) -> dict:
         invented = [c for c in codes if str(c).upper() not in real]
         if invented:
             return {"ok": False, "rejected_by": "argument_validation",
-                    "error": f"exclusion codes that do not exist in the corpus: {inventated}",
+                    "error": f"exclusion codes that do not exist in the corpus: {invented}",
                     "real_codes": ALL_CODES}
 
     payable = max(0, round(covered) - round(excess))

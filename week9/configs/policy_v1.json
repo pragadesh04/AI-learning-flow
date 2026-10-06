@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "policy-docs": {
+      "command": "python",
+      "args": ["mcp_servers/policy_server.py"],
+      "env": {"POLICY_SERVER_VERSION": "1"}
+    }
+  }
+}

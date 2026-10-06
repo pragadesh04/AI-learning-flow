@@ -1,0 +1,96 @@
+{
+  "query": "Triage claim CLM-2024-60337.",
+  "config": "mcp_config.json",
+  "discovered": {
+    "policy-docs": [
+      "search_policy"
+    ],
+    "claims-system": [
+      "get_claim_status",
+      "get_adjuster_notes"
+    ]
+  },
+  "tool_count": 3,
+  "calls": [
+    {
+      "lap": 1,
+      "server": "claims-system",
+      "tool": "get_claim_status",
+      "args": {
+        "claim_number": "CLM-2024-60337"
+      },
+      "is_error": false,
+      "result": "{\n  \"claim_number\": \"CLM-2024-60337\",\n  \"status\": \"under_review\",\n  \"policy_forms\": [\n    \"HO-0304\"\n  ],\n  \"date_of_loss\": \"2024-09-14\",\n  \"amount_claimed_usd\": 21000,\n  \"excess_usd\": 1000,\n  \"coverage_a_limit_usd\": 340000\n}"
+    },
+    {
+      "lap": 2,
+      "server": "claims-system",
+      "tool": "get_adjuster_notes",
+      "args": {
+        "claim_number": "CLM-2024-60337"
+      },
+      "is_error": false,
+      "result": "{\n  \"claim_number\": \"CLM-2024-60337\",\n  \"notes\": [\n    {\n      \"seq\": 1,\n      \"entered\": \"2024-09-14\",\n      \"author\": \"field adjuster\",\n      \"text\": \"CLM-2024-60337, [CLAIMANT_NAME], HO-0304 ed. 03-24, excess $1,000. Storm 14 September 2024, six inches of rain in one day. Water came in through the open garage door and under the exterior door sweep; the whole slab and the bottom two feet of drywall are wet. Restoration contractor invoice $21,000. No burst pipe and no appliance overflow found.\"\n    }\n  ]\n}"
+    },
+    {
+      "lap": 3,
+      "server": "policy-docs",
+      "tool": "search_policy",
+      "args": {
+        "form_number": "HO-0304",
+        "query": "water damage from rain entering through open garage door"
+      },
+      "is_error": false,
+      "result": "{\n  \"query\": \"water damage from rain entering through open garage door\",\n  \"form_number\": \"HO-0304\",\n  \"hits\": [\n    {\n      \"chunk_id\": \"HO-0304_sa_chunk_003\",\n      \"form_number\": \"HO-0304\",\n      \"clause_id\": \"CLAUSE-WD-1\",\n      \"text\": \"[HO-0304 ed. 03-24] CLAUSE-WD-1\\nCLAUSE WD-1 — SUDDEN AND ACCIDENTAL DISCHARGE\\nCoverage applies to sudden and accidental discharge or overflow of water or\\nsteam from within a plumbing, heating, air conditioning, or automatic fire\\nprotective sprinkler system, or from within a household appliance. The term\\n\\\"sudden and accidental\\\" means an event that is abrupt, unintended, and\\nnot the result of continuous seepage or leakage over a period of time exceeding\\nfourteen (14) consecutive days.\"\n    },\n    {\n      \"chunk_id\": \"HO-0304_sa_chunk_001\",\n      \"form_number\": \"HO-0304\",\n      \"clause_id\": \"PREAMBLE\",\n      \"text\": \"[HO-0304 ed. 03-24] PREAMBLE\\nForm Number: HO-0304\\nEdition Date: 03-24\\nPolicy Line: homeowners\\nEffective Date: March 1, 2024\\nTitle: Water Damage Limitations and Supply Line Coverage Endorsement\\n\\nThis endorsement modifies insurance provided under the:\\nHOMEOWNERS POLICY — SPECIAL FORM\"\n    }\n  ]\n}"
+    },
+    {
+      "lap": 4,
+      "server": "policy-docs",
+      "tool": "search_policy",
+      "args": {
+        "form_number": "HO-0304",
+        "query": "rain water entering through open garage door"
+      },
+      "is_error": false,
+      "result": "{\n  \"query\": \"rain water entering through open garage door\",\n  \"form_number\": \"HO-0304\",\n  \"hits\": [\n    {\n      \"chunk_id\": \"HO-0304_sa_chunk_001\",\n      \"form_number\": \"HO-0304\",\n      \"clause_id\": \"PREAMBLE\",\n      \"text\": \"[HO-0304 ed. 03-24] PREAMBLE\\nForm Number: HO-0304\\nEdition Date: 03-24\\nPolicy Line: homeowners\\nEffective Date: March 1, 2024\\nTitle: Water Damage Limitations and Supply Line Coverage Endorsement\\n\\nThis endorsement modifies insurance provided under the:\\nHOMEOWNERS POLICY — SPECIAL FORM\"\n    }\n  ]\n}"
+    },
+    {
+      "lap": 5,
+      "server": "policy-docs",
+      "tool": "search_policy",
+      "args": {
+        "form_number": "HO-0304",
+        "query": "rain water"
+      },
+      "is_error": false,
+      "result": "{\n  \"query\": \"rain water\",\n  \"form_number\": \"HO-0304\",\n  \"hits\": [\n    {\n      \"chunk_id\": \"HO-0304_sa_chunk_001\",\n      \"form_number\": \"HO-0304\",\n      \"clause_id\": \"PREAMBLE\",\n      \"text\": \"[HO-0304 ed. 03-24] PREAMBLE\\nForm Number: HO-0304\\nEdition Date: 03-24\\nPolicy Line: homeowners\\nEffective Date: March 1, 2024\\nTitle: Water Damage Limitations and Supply Line Coverage Endorsement\\n\\nThis endorsement modifies insurance provided under the:\\nHOMEOWNERS POLICY — SPECIAL FORM\"\n    },\n    {\n      \"chunk_id\": \"HO-0304_sa_chunk_010\",\n      \"form_number\": \"HO-0304\",\n      \"clause_id\": \"PREAMBLE\",\n      \"text\": \"[HO-0304 ed. 03-24] PREAMBLE\\nEND OF ENDORSEMENT HO-0304 ed. 03-24\"\n    },\n    {\n      \"chunk_id\": \"HO-0304_sa_chunk_007\",\n      \"form_number\": \"HO-0304\",\n      \"clause_id\": \"EXCLUSION-TABLE\",\n      \"text\": \"[HO-0304 ed. 03-24] EXCLUSION-TABLE\\nEXCLUSION TABLE — HO-0304 ed. 03-24\\n\\n| Code | Excluded Peril                             | Conditions / Scope                                                 |\\n|------|--------------------------------------------|--------------------------------------------------------------------|\\n| E-10 | Unoccupied dwelling freeze loss            | Freeze damage where heat was not maintained and water not shut off |\\n| E-11 | Gradual seepage or leakage                 | Water seeping or leaking continuously beyond the 14-day WD-1 limit |\\n| E-12 | Flood from external surface water          | Surface water entering from outside — storm surge, runoff, overflow|\\n| E-13 | Sewer or drain backup (off-premises)       | Backup originating in a municipal or shared drain line             |\\n| E-14 | Ground water intrusion                     | Subsurface water reaching the foundation, slab, or basement        |\\n| E-15 | Ice dam damage without maintenance record  | Ice dam loss where no annual roof inspection record exists         |\\n| E-16 | Appliance wear-and-tear overflow           | Overflow from an appliance past 15 years of service, unserviced    |\\n| E-17 | Burst supply line — NOT excluded           | Water damage from a sudden burst of an interior supply line IS     |\\n|      |                                            | COVERED under CLAUSE WD-1 and WD-2; this row confirms coverage     |\\n|      |                                            | is NOT withheld under this endorsement for that specific peril.    |\\n| E-18 | Intentional discharge                      | Any water release brought about deliberately by an insured person  |\"\n    }\n  ]\n}"
+    }
+  ],
+  "output": "CLAIM NUMBER: CLM-2024-60337  \nSTATUS: DENY  \nPAYABLE: $0  \nEVIDENCE: CLAUSE-WD-1, E-12  \nREASON: Water entered from external surface water (rain) through an open garage door, which is excluded under exclusion E-12.",
+  "stop_reason": "answered",
+  "usage": {
+    "laps": 6,
+    "prompt_tokens": 8577,
+    "completion_tokens": 964,
+    "total_tokens": 9541,
+    "cost_usd": 0.001865,
+    "app_time_s": 33.12,
+    "work_clock_s": 21.6,
+    "queue_suspect_s": 11.52,
+    "slow_laps": [
+      {
+        "lap": 6,
+        "seconds": 11.52,
+        "prompt_tokens": 2486,
+        "completion_tokens": 389
+      }
+    ],
+    "budgets": {
+      "max_iterations": 14,
+      "max_tokens": 45000,
+      "max_cost_usd": 0.03,
+      "max_wall_clock_s": 90.0
+    }
+  },
+  "model": "openai/gpt-oss-120b"
+}

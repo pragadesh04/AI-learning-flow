@@ -1,0 +1,31 @@
+{
+  "query": "Triage claim CLM-2024-60337.",
+  "config": "mcp_config.json",
+  "discovered": {
+    "policy-docs": [
+      "search_policy"
+    ]
+  },
+  "tool_count": 1,
+  "calls": [],
+  "output": "CLAIM NUMBER: CLM-2024-60337\nSTATUS: REFER\nPAYABLE: $0\nEVIDENCE: \nREASON: Missing claim details and adjuster notes needed for coverage determination.",
+  "stop_reason": "answered",
+  "usage": {
+    "laps": 1,
+    "prompt_tokens": 650,
+    "completion_tokens": 241,
+    "total_tokens": 891,
+    "cost_usd": 0.000242,
+    "app_time_s": 1.99,
+    "work_clock_s": 1.99,
+    "queue_suspect_s": 0.0,
+    "slow_laps": [],
+    "budgets": {
+      "max_iterations": 14,
+      "max_tokens": 45000,
+      "max_cost_usd": 0.03,
+      "max_wall_clock_s": 90.0
+    }
+  },
+  "model": "openai/gpt-oss-120b"
+}

@@ -1,0 +1,7 @@
+# git diff --no-index week9/snapshots/mcp_agent.server1.py src/mcp_agent.py
+# snapshot = agent module as it ran with server one only (week9/traces/run_server1.json)
+# live     = agent module as it ran with servers one + two (week9/traces/run_server1_plus_2.json)
+# sha256 snapshot: f1584ffb4ece845c71b212414d7a238172ccd1fbbd70d1f8ec39dada5213bbbe
+# sha256 live:     f1584ffb4ece845c71b212414d7a238172ccd1fbbd70d1f8ec39dada5213bbbe
+# files with changes: 0   changed lines: 0
+# --- diff output below (empty = identical) ---

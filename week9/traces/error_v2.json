@@ -1,0 +1,43 @@
+{
+  "query": "Under form HO-304, which exclusion code governs flood from external surface water? Quote the code and the row.",
+  "config": "week9\\configs\\policy_v2.json",
+  "discovered": {
+    "policy-docs": [
+      "search_policy"
+    ]
+  },
+  "tool_count": 1,
+  "calls": [
+    {
+      "lap": 1,
+      "server": "policy-docs",
+      "tool": "search_policy",
+      "args": {
+        "form_number": "HO-0304",
+        "query": "flood from external surface water"
+      },
+      "is_error": false,
+      "result": "{\n  \"query\": \"flood from external surface water\",\n  \"form_number\": \"HO-0304\",\n  \"hits\": [\n    {\n      \"chunk_id\": \"HO-0304_sa_chunk_007\",\n      \"form_number\": \"HO-0304\",\n      \"clause_id\": \"EXCLUSION-TABLE\",\n      \"text\": \"[HO-0304 ed. 03-24] EXCLUSION-TABLE\\nEXCLUSION TABLE — HO-0304 ed. 03-24\\n\\n| Code | Excluded Peril                             | Conditions / Scope                                                 |\\n|------|--------------------------------------------|--------------------------------------------------------------------|\\n| E-10 | Unoccupied dwelling freeze loss            | Freeze damage where heat was not maintained and water not shut off |\\n| E-11 | Gradual seepage or leakage                 | Water seeping or leaking continuously beyond the 14-day WD-1 limit |\\n| E-12 | Flood from external surface water          | Surface water entering from outside — storm surge, runoff, overflow|\\n| E-13 | Sewer or drain backup (off-premises)       | Backup originating in a municipal or shared drain line             |\\n| E-14 | Ground water intrusion                     | Subsurface water reaching the foundation, slab, or basement        |\\n| E-15 | Ice dam damage without maintenance record  | Ice dam loss where no annual roof inspection record exists         |\\n| E-16 | Appliance wear-and-tear overflow           | Overflow from an appliance past 15 years of service, unserviced    |\\n| E-17 | Burst supply line — NOT excluded           | Water damage from a sudden burst of an interior supply line IS     |\\n|      |                                            | COVERED under CLAUSE WD-1 and WD-2; this row confirms coverage     |\\n|      |                                            | is NOT withheld under this endorsement for that specific peril.    |\\n| E-18 | Intentional discharge                      | Any water release brought about deliberately by an insured person  |\"\n    },\n    {\n      \"chunk_id\": \"HO-0304_sa_chunk_001\",\n      \"form_number\": \"HO-0304\",\n      \"clause_id\": \"PREAMBLE\",\n      \"text\": \"[HO-0304 ed. 03-24] PREAMBLE\\nForm Number: HO-0304\\nEdition Date: 03-24\\nPolicy Line: homeowners\\nEffective Date: March 1, 2024\\nTitle: Water Damage Limitations and Supply Line Coverage Endorsement\\n\\nThis endorsement modifies insurance provided under the:\\nHOMEOWNERS POLICY — SPECIAL FORM\"\n    }\n  ]\n}"
+    }
+  ],
+  "output": "The exclusion that governs flood from external surface water on form **HO‑0304** is:\n\n**E‑12 – Flood from external surface water**  \n*Surface water entering from outside — storm surge, runoff, overflow*",
+  "stop_reason": "answered",
+  "usage": {
+    "laps": 2,
+    "prompt_tokens": 1961,
+    "completion_tokens": 450,
+    "total_tokens": 2411,
+    "cost_usd": 0.000564,
+    "app_time_s": 25.8,
+    "work_clock_s": 25.8,
+    "queue_suspect_s": 0.0,
+    "slow_laps": [],
+    "budgets": {
+      "max_iterations": 14,
+      "max_tokens": 45000,
+      "max_cost_usd": 0.03,
+      "max_wall_clock_s": 90.0
+    }
+  },
+  "model": "openai/gpt-oss-120b"
+}

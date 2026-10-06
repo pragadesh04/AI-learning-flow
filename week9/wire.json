@@ -1,0 +1,91 @@
+{
+  "model_call_location": "The model is called in the host only — src/mcp_agent.py run() -> tracing.call_model (Groq) — between tools/list and tools/call; it never happens on this wire or inside either MCP server.",
+  "captured_with": "python week9/capture_wire.py (raw newline-delimited JSON-RPC over the server's stdin/stdout, no SDK client); verbatim bytes in week9/wire_raw.json",
+  "server": "claims-system (mcp_servers/claims_system_server.py), launched as configured in mcp_config.json",
+  "exchange": [
+    {
+      "step": "1. initialize (request)",
+      "direction": "client -> server",
+      "raw": "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"initialize\", \"params\": {\"protocolVersion\": \"2026-07-28\", \"capabilities\": {}, \"clientInfo\": {\"name\": \"week9-wire-capture\", \"version\": \"1.0\"}}}",
+      "annotations": {
+        "jsonrpc": "Always the literal '2.0'. MCP rides on JSON-RPC 2.0; a message without it is not valid on this wire.",
+        "id": "1 — the client picks it. The response must carry the same id; that is how a reply is matched to its request over one stdio pipe.",
+        "method": "'initialize' — must be the first request. Nothing else is legal until the handshake is done.",
+        "params.protocolVersion": "The newest spec version the CLIENT speaks (2026-07-28, from the SDK). It is an offer, not a demand.",
+        "params.capabilities": "Empty: this client offers no sampling, roots or elicitation, so the server can never ask the host to run a model or show the user anything.",
+        "params.clientInfo": "Name/version of the caller. Informational only — it is NOT authentication; anyone can claim any name here."
+      }
+    },
+    {
+      "step": "1. initialize (response)",
+      "direction": "server -> client",
+      "raw": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"capabilities\":{\"prompts\":{\"listChanged\":false},\"resources\":{\"listChanged\":false,\"subscribe\":false},\"tools\":{\"listChanged\":false}},\"instructions\":\"Claim records and adjuster note history from the claims platform.\",\"protocolVersion\":\"2025-11-25\",\"serverInfo\":{\"name\":\"claims-system\",\"version\":\"\"}}}",
+      "annotations": {
+        "jsonrpc": "'2.0' again.",
+        "id": "1 — echoes the request id, so this answers the initialize above.",
+        "result.protocolVersion": "2025-11-25 — the server did NOT accept 2026-07-28; it answered with the newest version it supports. Negotiation result: the session runs on 2025-11-25. A client that cannot speak it must disconnect.",
+        "result.capabilities": "What the server offers: tools, resources and prompts, all with listChanged=false (the tool list will not change mid-session, so one tools/list is enough). No 'sampling' anywhere — there is no model on this side.",
+        "result.instructions": "Free text the host MAY put into the model's context. Third-party text: it is a prompt-injection surface, which is why mcp_agent.py does not forward it.",
+        "result.serverInfo": "name 'claims-system', version '' — the server does not even declare a version, so the host cannot pin or audit which build it is talking to (risk note)."
+      }
+    },
+    {
+      "step": "2. notifications/initialized",
+      "direction": "client -> server",
+      "raw": "{\"jsonrpc\": \"2.0\", \"method\": \"notifications/initialized\"}",
+      "annotations": {
+        "jsonrpc": "'2.0'.",
+        "(no id)": "No id = a NOTIFICATION: fire and forget, the server sends no reply. That is why the capture shows no response line here.",
+        "method": "'notifications/initialized' — the client confirms it accepted the negotiated version. Only after this is the session open for tools/list and tools/call."
+      }
+    },
+    {
+      "step": "3. tools/list (request)",
+      "direction": "client -> server",
+      "raw": "{\"jsonrpc\": \"2.0\", \"id\": 2, \"method\": \"tools/list\", \"params\": {}}",
+      "annotations": {
+        "jsonrpc": "'2.0'.",
+        "id": "2.",
+        "method": "'tools/list' — discovery. This is the call that makes adding a server a config change: the host learns the tools from here, not from its own code.",
+        "params": "Empty: no cursor, so the first (and here only) page."
+      }
+    },
+    {
+      "step": "3. tools/list (response)",
+      "direction": "server -> client",
+      "raw": "{\"jsonrpc\":\"2.0\",\"id\":2,\"result\":{\"tools\":[{\"description\":\"Return the claim record filed under one claim number: workflow status,\\npolicy forms in force, date of loss, amount claimed and the excess on file.\\nDoes not return adjuster notes or policy wording.\",\"inputSchema\":{\"properties\":{\"claim_number\":{\"title\":\"Claim Number\",\"type\":\"string\"}},\"required\":[\"claim_number\"],\"type\":\"object\",\"title\":\"get_claim_statusArguments\"},\"name\":\"get_claim_status\"},{\"description\":\"Return the adjuster note history for one claim number, oldest first.\\nAn empty history means no adjuster has inspected the claim yet.\",\"inputSchema\":{\"properties\":{\"claim_number\":{\"title\":\"Claim Number\",\"type\":\"string\"}},\"required\":[\"claim_number\"],\"type\":\"object\",\"title\":\"get_adjuster_notesArguments\"},\"name\":\"get_adjuster_notes\"}]}}",
+      "annotations": {
+        "jsonrpc": "'2.0'.",
+        "id": "2 — answers tools/list.",
+        "result.tools": "Two tools. Each entry has exactly three fields the host uses:",
+        "result.tools[].name": "The identifier the model will emit in a tool call (get_claim_status, get_adjuster_notes).",
+        "result.tools[].description": "The tool's docstring, verbatim. This text goes straight into the model's prompt — it IS a prompt, written by the server's author, not by us.",
+        "result.tools[].inputSchema": "JSON Schema for the arguments, generated from the Python type hints. The host passes it to the model unchanged as the function 'parameters'.",
+        "(no nextCursor)": "Absent = no more pages."
+      }
+    },
+    {
+      "step": "4. tools/call (request)",
+      "direction": "client -> server",
+      "raw": "{\"jsonrpc\": \"2.0\", \"id\": 3, \"method\": \"tools/call\", \"params\": {\"name\": \"get_claim_status\", \"arguments\": {\"claim_number\": \"CLM-2024-60337\"}}}",
+      "annotations": {
+        "jsonrpc": "'2.0'.",
+        "id": "3.",
+        "method": "'tools/call' — run one tool. In the agent this is sent by the HOST after the model asked for it; the model never talks to the server.",
+        "params.name": "'get_claim_status' — must match a name from tools/list.",
+        "params.arguments": "{'claim_number': 'CLM-2024-60337'} — validated by the server against the inputSchema before the function runs."
+      }
+    },
+    {
+      "step": "4. tools/call (response)",
+      "direction": "server -> client",
+      "raw": "{\"jsonrpc\":\"2.0\",\"id\":3,\"result\":{\"content\":[{\"text\":\"{\\n  \\\"claim_number\\\": \\\"CLM-2024-60337\\\",\\n  \\\"status\\\": \\\"under_review\\\",\\n  \\\"policy_forms\\\": [\\n    \\\"HO-0304\\\"\\n  ],\\n  \\\"date_of_loss\\\": \\\"2024-09-14\\\",\\n  \\\"amount_claimed_usd\\\": 21000,\\n  \\\"excess_usd\\\": 1000,\\n  \\\"coverage_a_limit_usd\\\": 340000\\n}\",\"type\":\"text\"}],\"isError\":false}}",
+      "annotations": {
+        "jsonrpc": "'2.0'.",
+        "id": "3 — answers the tools/call.",
+        "result.content": "A list of content blocks. One block, type 'text', holding the claim record as a JSON string. The host joins the text blocks and hands them to the model as the tool message.",
+        "result.isError": "false. A failed tool call is NOT a JSON-RPC error: it comes back as a normal result with isError=true and the message in content, so the MODEL can read it and recover (e.g. the claim-number-format error). A JSON-RPC 'error' object would be a protocol failure the model never sees."
+      }
+    }
+  ]
+}

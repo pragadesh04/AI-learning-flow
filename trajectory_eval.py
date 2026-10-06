@@ -654,7 +654,7 @@ def write_modes(bn: dict, mn: dict | None, dn: dict | None = None) -> None:
         row = f"| {mode} | {name} | {bn['mode_counts'][mode]} | " \
               f"{mn['mode_counts'][mode] if mn else ''} |"
         if dn:
-            row = row[:-2] + f" {dn['mode_counts'][mode]} |"
+            row += f" {dn['mode_counts'][mode]} |"
         lines.append(row)
     with open(MODES_MD, "w", encoding="utf-8") as fh:
         fh.write("\n".join(lines) + "\n")
