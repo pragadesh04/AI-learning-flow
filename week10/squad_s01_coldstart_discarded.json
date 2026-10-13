@@ -1,0 +1,268 @@
+{
+ "case_id": "s01",
+ "arm": "squad",
+ "claim_number": "CLM-2024-31842",
+ "notes_redacted": "Claim 2024-31842. Insured [CLAIMANT_NAME], HO-0304 ed. 03-24 on the dwelling, AOP deductible $1,000. Loss date Tuesday 11 June 2024 after three days of heavy rain. Inspected basement 6/13: water came up through cracks in the slab, carpet and drywall wet to 8 inches. No plumbing failure found, sump pump working, no surface water entry at doors or windows. Insured asking whether we pay for the basement tear-out.",
+ "policy_forms": [
+  "HO-0304"
+ ],
+ "output": "CLAIM NUMBER: 2024-31842  \nDATE OF LOSS: 11 June 2024  \nPOLICY FORMS: HO-0304 ed. 03-24  \nLOSS SUMMARY: After three days of heavy rain, water entered the basement through cracks in the slab, soaking carpet and drywall to a depth of 8 inches. Inspection found no plumbing failure, the sump pump was operational, and there was no surface water entry at doors or windows.  \n\nDEDUCTIBLE: $1,000  \n\nCOVERAGE POSITION:  \nFINDING 1: EXCLUDED – Ground water intrusion excluded under code E‑14 (subsurface water reaching foundation, slab, or basement) [SOURCE: HO-0304_sa_chunk_007 | HO-0304 | EXCLUSION‑TABLE]  \nFINDING 2: UNDETERMINED – No wording in HO‑0304 addresses demolition/tear‑out costs; the exclusion table lists only perils, none covering remediation expenses [SOURCE: HO-0304_sa_chunk_007 | HO-0304 | EXCLUSION‑TABLE]  \n\nEXCLUSIONS APPLIED:  \n- Ground water intrusion exclusion (code E‑14) as cited in Finding 1.  \n\nOPEN ITEMS: Insured inquiry regarding payment for basement tear‑out.",
+ "stop_reason": "answered",
+ "calls": [
+  {
+   "handoff": "orchestrator.plan",
+   "n": 1,
+   "prompt_tokens": 372,
+   "completion_tokens": 405,
+   "total_tokens": 777,
+   "latency_s": 2.75,
+   "messages_in": 2,
+   "finish_reason": "stop"
+  },
+  {
+   "handoff": "orchestrator->exclusions_worker",
+   "n": 2,
+   "prompt_tokens": 558,
+   "completion_tokens": 134,
+   "total_tokens": 692,
+   "latency_s": 0.653,
+   "messages_in": 2,
+   "finish_reason": "tool_calls"
+  },
+  {
+   "handoff": "orchestrator->exclusions_worker",
+   "n": 3,
+   "prompt_tokens": 866,
+   "completion_tokens": 53,
+   "total_tokens": 919,
+   "latency_s": 0.635,
+   "messages_in": 4,
+   "finish_reason": "tool_calls"
+  },
+  {
+   "handoff": "orchestrator->exclusions_worker",
+   "n": 4,
+   "prompt_tokens": 1402,
+   "completion_tokens": 174,
+   "total_tokens": 1576,
+   "latency_s": 0.775,
+   "messages_in": 6,
+   "finish_reason": "tool_calls"
+  },
+  {
+   "handoff": "orchestrator->exclusions_worker",
+   "n": 5,
+   "prompt_tokens": 1532,
+   "completion_tokens": 229,
+   "total_tokens": 1761,
+   "latency_s": 0.894,
+   "messages_in": 8,
+   "finish_reason": "tool_calls"
+  },
+  {
+   "handoff": "orchestrator->exclusions_worker",
+   "n": 6,
+   "prompt_tokens": 1840,
+   "completion_tokens": 123,
+   "total_tokens": 1963,
+   "latency_s": 0.675,
+   "messages_in": 10,
+   "finish_reason": "tool_calls"
+  },
+  {
+   "handoff": "orchestrator->exclusions_worker",
+   "n": 7,
+   "prompt_tokens": 2148,
+   "completion_tokens": 438,
+   "total_tokens": 2586,
+   "latency_s": 1.538,
+   "messages_in": 12,
+   "finish_reason": "stop"
+  },
+  {
+   "handoff": "orchestrator->notes_worker",
+   "n": 8,
+   "prompt_tokens": 260,
+   "completion_tokens": 357,
+   "total_tokens": 617,
+   "latency_s": 1.318,
+   "messages_in": 2,
+   "finish_reason": "stop"
+  },
+  {
+   "handoff": "workers->orchestrator.synthesise",
+   "n": 9,
+   "prompt_tokens": 622,
+   "completion_tokens": 518,
+   "total_tokens": 1140,
+   "latency_s": 1.745,
+   "messages_in": 2,
+   "finish_reason": "stop"
+  }
+ ],
+ "tool_calls": [
+  {
+   "handoff": "orchestrator->exclusions_worker",
+   "lap": 1,
+   "tool": "search_policy",
+   "args": {
+    "form_number": "HO-0304",
+    "query": "flood"
+   },
+   "ok": true,
+   "chunk_ids": [
+    "HO-0304_sa_chunk_001",
+    "HO-0304_sa_chunk_010",
+    "HO-0304_sa_chunk_000"
+   ]
+  },
+  {
+   "handoff": "orchestrator->exclusions_worker",
+   "lap": 2,
+   "tool": "search_policy",
+   "args": {
+    "form_number": "HO-0304",
+    "query": "exclusion table flood"
+   },
+   "ok": true,
+   "chunk_ids": [
+    "HO-0304_sa_chunk_006",
+    "HO-0304_sa_chunk_007"
+   ]
+  },
+  {
+   "handoff": "orchestrator->exclusions_worker",
+   "lap": 3,
+   "tool": "search_policy",
+   "args": {
+    "form_number": "HO-0304",
+    "query": "remediation"
+   },
+   "ok": true,
+   "chunk_ids": [
+    "HO-0304_sa_chunk_010"
+   ]
+  },
+  {
+   "handoff": "orchestrator->exclusions_worker",
+   "lap": 4,
+   "tool": "search_policy",
+   "args": {
+    "form_number": "HO-0304",
+    "query": "removal"
+   },
+   "ok": true,
+   "chunk_ids": [
+    "HO-0304_sa_chunk_010",
+    "HO-0304_sa_chunk_001",
+    "HO-0304_sa_chunk_000"
+   ]
+  },
+  {
+   "handoff": "orchestrator->exclusions_worker",
+   "lap": 5,
+   "tool": "search_policy",
+   "args": {
+    "form_number": "HO-0304",
+    "query": "demolition"
+   },
+   "ok": true,
+   "chunk_ids": [
+    "HO-0304_sa_chunk_010",
+    "HO-0304_sa_chunk_000",
+    "HO-0304_sa_chunk_001"
+   ]
+  }
+ ],
+ "usage": {
+  "laps": 9,
+  "prompt_tokens": 9600,
+  "completion_tokens": 2431,
+  "total_tokens": 12031,
+  "cost_usd": 0.002899,
+  "app_time_s": 60.82,
+  "work_clock_s": 60.82,
+  "queue_suspect_s": 0.0,
+  "slow_laps": [],
+  "budgets": {
+   "max_iterations": 14,
+   "max_tokens": 45000,
+   "max_cost_usd": 0.03,
+   "max_wall_clock_s": 90.0
+  }
+ },
+ "total_tokens": 12031,
+ "cost_usd": 0.002899,
+ "latency_s": 60.82,
+ "model": {
+  "name": "openai/gpt-oss-120b",
+  "temperature": 0.0,
+  "max_tokens": 1600
+ },
+ "generated_at": "2026-10-12T21:24:05",
+ "plan_raw": "{\n  \"coverage_questions\": [\n    {\n      \"peril\": \"Water intrusion through slab cracks after heavy rain\",\n      \"facts\": \"Loss date Tuesday 11 June 2024 after three days of heavy rain; water entered basement through cracks in the slab; carpet and drywall wet to 8 inches; no plumbing failure found; sump pump was working; no surface water entry at doors or windows; policy HO-0304 ed. 03-24 with AOP deductible $1,000.\",\n      \"forms\": [\"HO-0304\"]\n    },\n    {\n      \"peril\": \"Basement demolition/tear‑out for remediation\",\n      \"facts\": \"Insured is requesting payment for basement tear‑out; damage includes wet carpet and drywall to 8 inches; water source is as described above (slab cracks, heavy rain); policy HO-0304 ed. 03-24 with AOP deductible $1,000.\",\n      \"forms\": [\"HO-0304\"]\n    }\n  ]\n}",
+ "coverage_questions": [
+  {
+   "peril": "Water intrusion through slab cracks after heavy rain",
+   "facts": "Loss date Tuesday 11 June 2024 after three days of heavy rain; water entered basement through cracks in the slab; carpet and drywall wet to 8 inches; no plumbing failure found; sump pump was working; no surface water entry at doors or windows; policy HO-0304 ed. 03-24 with AOP deductible $1,000.",
+   "forms": [
+    "HO-0304"
+   ]
+  },
+  {
+   "peril": "Basement demolition/tear‑out for remediation",
+   "facts": "Insured is requesting payment for basement tear‑out; damage includes wet carpet and drywall to 8 inches; water source is as described above (slab cracks, heavy rain); policy HO-0304 ed. 03-24 with AOP deductible $1,000.",
+   "forms": [
+    "HO-0304"
+   ]
+  }
+ ],
+ "worker_reports": {
+  "exclusions": "FINDING 1: EXCLUDED – Ground water intrusion excluded under code E‑14 (subsurface water reaching foundation, slab, or basement) [SOURCE: HO-0304_sa_chunk_007 | HO-0304 | EXCLUSION‑TABLE]  \nFINDING 2: UNDETERMINED – No wording in HO‑0304 addresses demolition/tear‑out costs; the exclusion table lists only perils, none covering remediation expenses [SOURCE: HO-0304_sa_chunk_007 | HO-0304 | EXCLUSION‑TABLE]",
+  "notes": "CLAIM NUMBER: 2024-31842\nDATE OF LOSS: 11 June 2024\nPOLICY FORMS: HO-0304 ed. 03-24\nLOSS SUMMARY: After three days of heavy rain, water entered the basement through cracks in the slab, soaking carpet and drywall to a depth of 8 inches. Inspection found no plumbing failure, the sump pump was operational, and there was no surface water entry at doors or windows.\nDEDUCTIBLE: $1,000\nOPEN ITEMS: Insured inquiry regarding payment for basement tear‑out."
+ },
+ "events": [
+  "exclusions_worker attempt 1: answered"
+ ],
+ "fail_worker": null,
+ "critical_path_s": 9.665,
+ "assertions": {
+  "A1_claim_number_CLM-YYYY-NNNNN": {
+   "applies": true,
+   "passed": false,
+   "detail": "expected CLM-2024-31842; canonical form absent"
+  },
+  "A2_date_of_loss_parseable": {
+   "applies": true,
+   "passed": true,
+   "detail": "2024-06-11"
+  },
+  "A3_deductible_numeric": {
+   "applies": true,
+   "passed": true,
+   "detail": "$1,000"
+  },
+  "A4_denial_cites_E-code": {
+   "applies": true,
+   "passed": true,
+   "detail": "denial ('EXCLUDED') cites E‑14"
+  },
+  "A5_source_tags_resolve": {
+   "applies": true,
+   "passed": false,
+   "detail": "HO-0304_sa_chunk_007 clause is EXCLUSION-TABLE, tag says 'EXCLUSION‑TABLE'"
+  }
+ },
+ "judge": {
+  "version": "v1",
+  "output": "CLAIM NUMBER: 2024-31842  \nDATE OF LOSS: 11 June 2024  \nPOLICY FORMS: HO-0304 ed. 03-24  \nLOSS SUMMARY: After three days of heavy rain, water entered the basement through cracks in the slab, soaking carpet and drywall to a depth of 8 inches. Inspection found no plumbing failure, the sump pump was operational, and there was no surface water entry at doors or windows.  \n\nDEDUCTIBLE: $1,000  \n\nCOVERAGE POSITION:  \nFINDING 1: EXCLUDED – Ground water intrusion excluded under code E‑14 (subsurface water reaching foundation, slab, or basement) [SOURCE: HO-0304_sa_chunk_007 | HO-0304 | EXCLUSION‑TABLE]  \nFINDING 2: UNDETERMINED – No wording in HO‑0304 addresses demolition/tear‑out costs; the exclusion table lists only perils, none covering remediation expenses [SOURCE: HO-0304_sa_chunk_007 | HO-0304 | EXCLUSION‑TABLE]  \n\nEXCLUSIONS APPLIED:  \n- Ground water intrusion exclusion (code E‑14) as cited in Finding 1.  \n\nOPEN ITEMS: Insured inquiry regarding payment for basement tear‑out.",
+  "verdict": "PASS",
+  "reason": "All coverage statements (exclusion under E‑14 and the undetermined status of demolition costs) are supported by the endorsement wording and the adjuster’s facts.",
+  "raw": "REASON: All coverage statements (exclusion under E‑14 and the undetermined status of demolition costs) are supported by the endorsement wording and the adjuster’s facts.  \nVERDICT: PASS",
+  "latency_ms": 2417.7,
+  "finish_reason": "stop"
+ },
+ "a_pass": false,
+ "j_pass": true,
+ "pass": false
+}

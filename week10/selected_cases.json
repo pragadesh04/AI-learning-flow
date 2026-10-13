@@ -1,0 +1,28 @@
+{
+  "seed": 20261012,
+  "pool": "evals/cases.jsonl kind=summary (25)",
+  "case_ids": [
+    "s01",
+    "s05",
+    "s06",
+    "s09",
+    "s11",
+    "s14",
+    "s15",
+    "s19",
+    "s20",
+    "s23"
+  ],
+  "modes": {
+    "s01": "denial text that cannot be pasted into a letter as written",
+    "s05": "denial text that cannot be pasted into a letter as written",
+    "s06": "widens a narrowly scoped clause into a general rule",
+    "s09": "widens a narrowly scoped clause into a general rule",
+    "s11": "answers a corpus-wide question from one endorsement only",
+    "s14": "answers a corpus-wide question from one endorsement only",
+    "s15": "cites a clause number that does not exist in the form it names",
+    "s19": "cites a clause number that does not exist in the form it names",
+    "s20": "citation printed in brackets the citation checker cannot parse",
+    "s23": "refuses although the answering exclusion row is in the corpus"
+  }
+}

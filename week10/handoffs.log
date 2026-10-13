@@ -1,0 +1,84 @@
+# week10/handoffs.log — every model call, tagged with the hand-off that caused it.
+# tokens are metered response.usage, summed per hand-off per case.
+# columns: case arm handoff calls prompt_tok completion_tok total_tok share_of_case
+
+s01  single  single.loop                        calls=2  prompt=1848   completion=614   total=2462   share=100.0%
+s01  single  TOTAL                              calls=2                                    total=2462
+s01  squad   orchestrator.plan                  calls=1  prompt=372    completion=438   total=810    share= 18.1%
+s01  squad   orchestrator->exclusions_worker    calls=2  prompt=1609   completion=339   total=1948   share= 43.6%
+s01  squad   orchestrator->notes_worker         calls=1  prompt=260    completion=357   total=617    share= 13.8%
+s01  squad   workers->orchestrator.synthesise   calls=1  prompt=614    completion=480   total=1094   share= 24.5%
+s01  squad   TOTAL                              calls=5                                    total=4469
+
+s05  single  single.loop                        calls=5  prompt=6655   completion=971   total=7626   share=100.0%
+s05  single  TOTAL                              calls=5                                    total=7626
+s05  squad   orchestrator.plan                  calls=1  prompt=338    completion=446   total=784    share=  5.8%
+s05  squad   orchestrator->exclusions_worker    calls=7  prompt=10000  completion=1080  total=11080  share= 81.5%
+s05  squad   orchestrator->notes_worker         calls=1  prompt=226    completion=410   total=636    share=  4.7%
+s05  squad   workers->orchestrator.synthesise   calls=1  prompt=618    completion=470   total=1088   share=  8.0%
+s05  squad   TOTAL                              calls=10                                   total=13588
+
+s06  single  single.loop                        calls=3  prompt=3214   completion=663   total=3877   share=100.0%
+s06  single  TOTAL                              calls=3                                    total=3877
+s06  squad   orchestrator.plan                  calls=1  prompt=375    completion=312   total=687    share= 16.7%
+s06  squad   orchestrator->exclusions_worker    calls=2  prompt=1496   completion=231   total=1727   share= 41.9%
+s06  squad   orchestrator->notes_worker         calls=1  prompt=263    completion=401   total=664    share= 16.1%
+s06  squad   workers->orchestrator.synthesise   calls=1  prompt=563    completion=485   total=1048   share= 25.4%
+s06  squad   TOTAL                              calls=5                                    total=4126
+
+s09  single  single.loop                        calls=5  prompt=6553   completion=1408  total=7961   share=100.0%
+s09  single  TOTAL                              calls=5                                    total=7961
+s09  squad   orchestrator.plan                  calls=1  prompt=352    completion=473   total=825    share= 10.2%
+s09  squad   orchestrator->exclusions_worker    calls=4  prompt=4171   completion=873   total=5044   share= 62.4%
+s09  squad   orchestrator->notes_worker         calls=1  prompt=240    completion=572   total=812    share= 10.0%
+s09  squad   workers->orchestrator.synthesise   calls=1  prompt=673    completion=728   total=1401   share= 17.3%
+s09  squad   TOTAL                              calls=7                                    total=8082
+
+s11  single  single.loop                        calls=3  prompt=3011   completion=1041  total=4052   share=100.0%
+s11  single  TOTAL                              calls=3                                    total=4052
+s11  squad   orchestrator.plan                  calls=1  prompt=365    completion=620   total=985    share= 15.2%
+s11  squad   orchestrator->exclusions_worker    calls=3  prompt=2864   completion=705   total=3569   share= 55.1%
+s11  squad   orchestrator->notes_worker         calls=1  prompt=248    completion=537   total=785    share= 12.1%
+s11  squad   workers->orchestrator.synthesise   calls=1  prompt=661    completion=483   total=1144   share= 17.6%
+s11  squad   TOTAL                              calls=6                                    total=6483
+
+s14  single  single.loop                        calls=7  prompt=11717  completion=2042  total=13759  share=100.0%
+s14  single  TOTAL                              calls=7                                    total=13759
+s14  squad   orchestrator.plan                  calls=1  prompt=386    completion=615   total=1001   share=  5.6%
+s14  squad   orchestrator->exclusions_worker    calls=8  prompt=12322  completion=1766  total=14088  share= 78.8%
+s14  squad   orchestrator->notes_worker         calls=1  prompt=269    completion=606   total=875    share=  4.9%
+s14  squad   workers->orchestrator.synthesise   calls=1  prompt=672    completion=1247  total=1919   share= 10.7%
+s14  squad   TOTAL                              calls=11                                   total=17883
+
+s15  single  single.loop                        calls=4  prompt=4995   completion=844   total=5839   share=100.0%
+s15  single  TOTAL                              calls=4                                    total=5839
+s15  squad   orchestrator.plan                  calls=1  prompt=358    completion=551   total=909    share= 11.0%
+s15  squad   orchestrator->exclusions_worker    calls=4  prompt=4655   completion=983   total=5638   share= 68.2%
+s15  squad   orchestrator->notes_worker         calls=1  prompt=241    completion=412   total=653    share=  7.9%
+s15  squad   workers->orchestrator.synthesise   calls=1  prompt=588    completion=480   total=1068   share= 12.9%
+s15  squad   TOTAL                              calls=7                                    total=8268
+
+s19  single  single.loop                        calls=4  prompt=4778   completion=875   total=5653   share=100.0%
+s19  single  TOTAL                              calls=4                                    total=5653
+s19  squad   orchestrator.plan                  calls=1  prompt=360    completion=387   total=747    share=  5.9%
+s19  squad   orchestrator->exclusions_worker    calls=6  prompt=7982   completion=1779  total=9761   share= 77.0%
+s19  squad   orchestrator->notes_worker         calls=1  prompt=243    completion=589   total=832    share=  6.6%
+s19  squad   workers->orchestrator.synthesise   calls=1  prompt=645    completion=688   total=1333   share= 10.5%
+s19  squad   TOTAL                              calls=9                                    total=12673
+
+s20  single  single.loop                        calls=2  prompt=1880   completion=582   total=2462   share=100.0%
+s20  single  TOTAL                              calls=2                                    total=2462
+s20  squad   orchestrator.plan                  calls=1  prompt=341    completion=564   total=905    share=  5.1%
+s20  squad   orchestrator->exclusions_worker    calls=8  prompt=13070  completion=1621  total=14691  share= 83.3%
+s20  squad   orchestrator->notes_worker         calls=1  prompt=229    completion=570   total=799    share=  4.5%
+s20  squad   workers->orchestrator.synthesise   calls=1  prompt=618    completion=625   total=1243   share=  7.0%
+s20  squad   TOTAL                              calls=11                                   total=17638
+
+s23  single  single.loop                        calls=2  prompt=1537   completion=654   total=2191   share=100.0%
+s23  single  TOTAL                              calls=2                                    total=2191
+s23  squad   orchestrator.plan                  calls=1  prompt=303    completion=348   total=651    share= 17.2%
+s23  squad   orchestrator->exclusions_worker    calls=2  prompt=1410   completion=251   total=1661   share= 43.9%
+s23  squad   orchestrator->notes_worker         calls=1  prompt=191    completion=342   total=533    share= 14.1%
+s23  squad   workers->orchestrator.synthesise   calls=1  prompt=519    completion=419   total=938    share= 24.8%
+s23  squad   TOTAL                              calls=5                                    total=3783
+

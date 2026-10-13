@@ -1,0 +1,28 @@
+{
+  "protocolVersion": "0.3.0",
+  "name": "claims-squad-orchestrator",
+  "description": "Writes a claim file summary from adjuster notes for a homeowners claim under the HO-0304..HO-0309 endorsements. Decomposes the claim, delegates coverage/exclusion lookup and note summarisation to two internal workers, and returns the eight-heading summary with a [SOURCE: chunk_id | form_number | clause_id] tag on every coverage statement. Does not pay, deny or settle anything.",
+  "url": "http://localhost:8410/a2a",
+  "preferredTransport": "JSONRPC",
+  "version": "0.10.0",
+  "provider": {"organization": "AI Engineering League - Set D (insurance claims)", "url": "http://localhost:8410"},
+  "capabilities": {"streaming": false, "pushNotifications": false, "stateTransitionHistory": true},
+  "defaultInputModes": ["text/plain", "application/json"],
+  "defaultOutputModes": ["text/plain"],
+  "securitySchemes": {
+    "adjusterBearer": {"type": "http", "scheme": "bearer", "bearerFormat": "JWT",
+                       "description": "Short-lived token scoped to claims:summary:read. Holds no payment or settlement scope."}
+  },
+  "security": [{"adjusterBearer": []}],
+  "skills": [
+    {
+      "id": "summarise-claim-file",
+      "name": "Summarise a claim file",
+      "description": "Adjuster notes plus the policy forms on file in; CLAIM NUMBER / DATE OF LOSS / POLICY FORMS / LOSS SUMMARY / DEDUCTIBLE / COVERAGE POSITION / EXCLUSIONS APPLIED / OPEN ITEMS out. Coverage statements are cited to the indexed endorsement wording or marked undetermined. If the coverage worker is unavailable the task goes to input-required, not completed.",
+      "tags": ["insurance", "claims", "homeowners", "coverage", "summary"],
+      "examples": ["Summarise claim CLM-2024-31842: notes attached, policy forms HO-0304."],
+      "inputModes": ["application/json"],
+      "outputModes": ["text/plain"]
+    }
+  ]
+}
